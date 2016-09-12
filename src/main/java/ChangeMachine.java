@@ -68,14 +68,20 @@ public class ChangeMachine {
   }
 
   public String makeChange(Float totalCash){
-    int quarterChangeTotal = makeQuarterChange(totalCash);
-    float updatedCashTotal = totalCash - (quarterChangeTotal * 0.25f);
-    int dimeChangeTotal = makeDimeChange(updatedCashTotal);
-    updatedCashTotal -= (dimeChangeTotal * 0.10f);
-    int nickelChangeTotal = makeNickelChange(updatedCashTotal);
-    updatedCashTotal -= (nickelChangeTotal * 0.05f);
-    int pennyChangeTotal = makePennyChange(updatedCashTotal);
-    return String.format("Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal);
+    Float remainder = totalCash - 8.20f;
+
+      int quarterChangeTotal = makeQuarterChange(totalCash);
+      float updatedCashTotal = totalCash - (quarterChangeTotal * 0.25f);
+      int dimeChangeTotal = makeDimeChange(updatedCashTotal);
+      updatedCashTotal -= (dimeChangeTotal * 0.10f);
+      int nickelChangeTotal = makeNickelChange(updatedCashTotal);
+      updatedCashTotal -= (nickelChangeTotal * 0.05f);
+      int pennyChangeTotal = makePennyChange(updatedCashTotal);
+      if (totalCash < 8.20) {
+      return String.format("Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal);
+    } else {
+      return String.format("Sorry, machine is out of change. Thanks for the extra dough. Here's what you get: Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d. We still owe you %f.", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal, remainder);
+    }
   }
 
 }
